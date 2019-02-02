@@ -5,13 +5,12 @@ const settings = {
     deckCount: 1,
 
     // Should the game start with a shuffled deck?
+    // Default is true.
     deckShuffled: true,
 
     // Number of total players (including the dealer). There will always be one dealer.
+    // Default is 2.
     numPlayers: 2,
-
-    // Number of cards each player (including the dealer) is dealt whenever the DEAL button is used.
-    dealCount: 1,
 }
 
 export default settings;
