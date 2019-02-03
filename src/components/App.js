@@ -38,7 +38,7 @@ class App extends Component {
       gameStarted: true, 
       deckID: newDeckData['deck_id'], 
       deckRemaining: newDeckData['remaining'],
-      players: this.initPlayers(settings.numPlayers),
+      players: this.initPlayerStates(settings.numPlayers),
     });
 
     localStorage.setItem('deckID', newDeckData['deck_id']);
@@ -51,12 +51,12 @@ class App extends Component {
         console.log('prevDeckData:', prevDeckData);
         const prevPlayerStates = await this.getPlayerStates(this.state.prevDeckID);
         console.log('prevPlayers:', prevPlayerStates);
-
+        const playerStates = (prevPlayerStates.length === 0) ? this.initPlayerStates(settings.numPlayers) : prevPlayerStates;
         this.setState({
           gameStarted: true,
           deckID: prevDeckData['deck_id'],
           deckRemaining: prevDeckData['remaining'],
-          players: this.initPlayers(settings.numPlayers),
+          players: playerStates,
         })
       }
       catch {
@@ -71,18 +71,22 @@ class App extends Component {
    * @param {number} num The number of players in the game, including the dealer. Should be > 0.
    * @returns {object[]}  
    */
-  initPlayers(num) {
-    const players = [...Array(num)].map((e, i) => {
+  initPlayerStates(num) {
+    const playerStates = [...Array(num)].map((e, i) => {
       const playerObj = { name: `player${i}`, hand: [], numCards: 0 }
       if (i === 0) { playerObj.name = settings.firstPlayerName }
       return playerObj;
     })
-    return players;
+    return playerStates;
   }
 
   getPlayerStates = async (deckID) => {
     const playerNames = await deckService.getPlayerNames(deckID, settings.firstPlayerName);
-    return playerNames; 
+    const playerStates = playerNames.map(async playerName => {
+      const playerHand = await deckService.getPlayerHand(deckID, playerName);
+      return { name: playerName, hand: playerHand.cards, numCards: playerHand.remaining }
+    });
+    return Promise.all(playerStates); 
   }
 
   /**
