@@ -1,10 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
+import Hand from "./Hand";
 
 function PlayerList(props) {
   const players = props.players.map(({ name, hand, numCards }) => {
     return (
       <li key={name}>
-        <strong>{name}:</strong> {numCards} [ {hand.map(card => card.code).toString()} ]
+        {/* <Hand playerName={name} cards={hand} /> */}
+        <Hand playerName={name} cards={hand} />
       </li>
     );
   });
