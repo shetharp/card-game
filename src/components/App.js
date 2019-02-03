@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import deckofcards from '../api/deckofcards';
+import deckService from '../api/deckofcards';
 import settings from '../api/settings';
 import PlayerList from './PlayerList';
 
@@ -36,19 +36,14 @@ class App extends Component {
    * Edit ../api/settings.js for API and game settings
    */
   onNewGame = async (event) => {
-    const requestURL = settings.deckShuffled ? '/deck/new/shuffle/' : '/deck/new/';
-    const deckResponse = await deckofcards.get(requestURL, {
-      params: { deck_count: settings.deckCount }
-    });
+    const newDeckData = await deckService.newDeck();
 
     this.setState({ 
       gameStarted: true, 
-      deckID: deckResponse.data['deck_id'], 
-      deckRemaining: deckResponse.data['remaining'],
+      deckID: newDeckData['deck_id'], 
+      deckRemaining: newDeckData['remaining'],
       players: this.initPlayers(settings.numPlayers),
     });
-    console.log('~~~ NEW GAME STARTED ~~~');
-    console.log(this.state);
   }
 
 
@@ -57,39 +52,26 @@ class App extends Component {
    * Deals one face down card to each player.
    */
   onDeal = async (event) => {
-    // API: Draw the cards and update the deck state
-    const onDraw = async () => {
-      const numCardsToDraw = settings.numPlayers;
-      const drawURL = `/deck/${this.state.deckID}/draw/`;
-      const drawResponse = await deckofcards.get(drawURL, {
-        params: { count: numCardsToDraw }
-      });
-      return drawResponse;
-    }
-
-    // API: Add a card to a player's hand and return an updated player state
-    const onDealCardToPlayer = async (player, card) => {
-      const dealCardToPlayerURL = `/deck/${this.state.deckID}/pile/${player.name}/add/`;
-      const dealCardToPlayerResponse = await deckofcards.get(dealCardToPlayerURL, {
-        params: { cards: card.code }
-      });
-      const cardsOnHand = dealCardToPlayerResponse.data.piles[player.name].remaining;
+    // HELPER: Returns an updated player object after dealing a card to them
+    const dealToPlayerAndUpdate = async (player, card) => {
+      const dealResponseData = await deckService.dealCardToPlayer(this.state.deckID, player.name, card.code);
+      const cardsOnHand = dealResponseData.piles[player.name].remaining;
       return { name: player.name, hand: [...player.hand, card], numCards: cardsOnHand };
     }
-    // End Helper Functions
-    // --------------------------------------------------
+
+    // HELPER: Returns a list of promises for updated player states
+    const dealAndUpdatePlayers = () => {
+      return this.state.players.map(async (player, idx) => await dealToPlayerAndUpdate(player, cards[idx]));
+    }
+    // ----- END of Helper Functions -----
 
     // First, Draw cards and keep a list of cards
-    const drawResponse = await onDraw();
-    this.setState({ deckRemaining: drawResponse.data.remaining })
-    const cards = drawResponse.data.cards;
+    const drawResponseData = await deckService.drawCards(this.state.deckID);
+    this.setState({ deckRemaining: drawResponseData.remaining })
+    const cards = drawResponseData.cards;
 
-    // Next, Deal cards to each player with the API
-    // Wait until all cards have been dealt, to get a list of updated player objects
-    const updatedPlayers = await Promise.all(
-      this.state.players.map(async (player, idx) => await onDealCardToPlayer(player, cards[idx]))
-    );
-    
+    // Then, Deal cards to each player and update their player objects
+    const updatedPlayers = await Promise.all(dealAndUpdatePlayers())
     this.setState({ players: updatedPlayers });
   }
 
