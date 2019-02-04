@@ -1,68 +1,52 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Card Game
+This is a web app game that lets you flip cards and collect points against a dealer.
 
-## Available Scripts
+![screenshot](screenshot.png)
 
-In the project directory, you can run:
+## Gameplay
+To play the game, click the `Start Game` button. We play with a standard deck of 52 cards. Clicking the `Deal` button deals a card to all players, including the dealer. You calculate points by flipping cards face up.
 
-### `npm start`
+## Development
+This is a React web app bootstrapped with [Create React App](http://github.com/facebook/create-react-app).
+The card game is managed with the [Deck of Cards API](http://deckofcardsapi.com/).
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The following `npm` packages were also used:
+* `axios` for API service calls
+* `styled-components` for CSS in JS styling
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Local Install
+To install this web app locally, follow these steps.
+1. Clone this repo.
+2. Navigate to the this project's directory and run `npm install`
+3. To begin developing, run `npm start`
+4. To build the project for deployment, run `npm build`
 
-### `npm test`
+## Making this your own
+This web app was built with extensibility and future scalability in mind.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Multiple Players
+Out of the box, this game supports multiple players. You can also change the default player's name to something other than `dealer`. These settings, along with others, are included in the `src/api/settings.js` file.
 
-### `npm run build`
+### Unshuffled Deck
+By default we play with a shuffled deck. You can customize this in the `src/api/settings.js` file.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Theme
+Basic theme settings are stored in the `src/styles/theme.js` file. Further customizations are easy to do with `styled-components` as everything needed to style a component is included in its component file.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### Custom Cards
+The Cards used in this game are designed with CSS. They are _not images._ You can customize the both the Back and the Front of the Card by editing the Card component file in `src/components/Card.js`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Managing Hands
+The game currently requests to `Draw` a card from the deck and add it to that player's `pile` or hand through the API. To reduce latency and minimize the number of API calls, the game does not request the API to list each player's hand each time a card is drawn. The game only requests the API to list each player's hand if a previous game is being resumed to reinitialize the game state.
 
-### `npm run eject`
+### Save Game
+This game currently supports resuming the most recently played game. The game stores the `deckID` from the Deck of Cards API in the user's `localStorage` to resume the game. Currently, _the game does not store any other information besides the `deckID`._
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Potential New Features and Future Dev Work
+* Allow players to draw cards independently
+* Implement a game of Blackjack
+* Design the cards to show the corresponding number of suit symbols based on its value
+* Design face cards with only CSS
+* Save multiple games with `localStorage`
+* Create an algorithm to automate the dealer's game strategy
+* Get a new deck once the current one runs out
