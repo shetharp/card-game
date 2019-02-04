@@ -5,10 +5,33 @@ import Card from './Card';
 // ==================================================
 //  STYLED COMPONENTS
 // ==================================================
-const HandContainer = styled.div`
+const HandContainer = styled.section`
+  padding: 1.6rem;
+`;
+
+const HandHeader = styled.header`
+  padding: 4rem 0 2.4rem 0;
+`;
+
+const StyledName = styled.h1`
+  text-transform: uppercase;
+  margin: 0;
+`;
+
+const StyledInfo = styled.h2`
+  font-weight: normal;
+  display: inline-block;
+  background: ${props => props.priority ? `rgba(0,0,0,0.3)` : `rgba(0,0,0,0.1)`};
+  border-radius: 1.6rem;
+  padding: 0.8rem 2.4rem;
+  margin: 0.8rem;
+`;
+
+const CardsContainer = styled.div`
   display: flex;
   justify-content: center;
-  outline: 1px solid mediumaquamarine;
+  max-width: 100%;
+  min-height: 240px;
 `;
 
 // ==================================================
@@ -97,13 +120,14 @@ class Hand extends Component {
     const overlapPercent = getOverlapValues(cards.length);
     const rotateValues = getRotateValues(cards.length);
     return (
-      <span>
-        <h1>
-          <strong>{playerName}:</strong> {cards.length} <br />
-          <small><strong>Points:</strong> {this.getPoints()}</small>
-        </h1>
+      <HandContainer>
+        <HandHeader>
+          <StyledName>{playerName}</StyledName>
+          <StyledInfo priority>{this.getPoints()} <small>Points</small></StyledInfo>
+          <StyledInfo>{cards.length} <small>Cards</small></StyledInfo>
+        </HandHeader>
         
-        <HandContainer>
+        <CardsContainer>
           {cards.map((card, idx) => {
             const faceUpCards = this.state.faceUpCards
             return (
@@ -117,8 +141,8 @@ class Hand extends Component {
                 />
             );
           })}
-        </HandContainer>
-      </span>
+        </CardsContainer>
+      </HandContainer>
     );
   }
 }

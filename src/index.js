@@ -16,9 +16,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: Bahnschrift, 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 300;
     font-size: 1.6rem;
-    color: white;
-    background: ${theme.board} url(${gameBg});
-    box-shadow: inset 0 0 160px rgba(0,0,0,0.2), inset 0 0 240px rgba(0,0,0,0.3);
     margin: 0;
     padding: 0;
   }

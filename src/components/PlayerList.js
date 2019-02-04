@@ -1,4 +1,5 @@
 import React from "react";
+import styled from 'styled-components';
 import Hand from "./Hand";
 
 // ==================================================
@@ -22,13 +23,11 @@ function PlayerList(props) {
   const sortedPlayerStates = getSortedPlayerStates(props.players);
   const players = sortedPlayerStates.map(({ name, hand, numCards }) => {
     return (
-      <li key={name}>
-        <Hand playerName={name} cards={hand} />
-      </li>
+        <Hand key={name} playerName={name} cards={hand} />
     );
   });
 
-  return <ul>{players}</ul>;
+  return <div>{players}</div>;
 }
 
 export default PlayerList;

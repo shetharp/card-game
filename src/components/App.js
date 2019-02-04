@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import deckService from '../api/deckofcards';
 import settings from '../api/settings';
 import theme from '../styles/theme';
+import gameBg from '../images/game-bg.svg';
 import PlayerList from './PlayerList';
 
 // ==================================================
@@ -10,11 +11,17 @@ import PlayerList from './PlayerList';
 // ==================================================
 const AppContainer = styled.div`
   text-align: center;
-  width: 100vw;
   height: 100vh;
+  width: 100vw;
+  color: white;
+  background: ${theme.board} url(${gameBg});
+  box-shadow: inset 0 0 160px rgba(0,0,0,0.2), inset 0 0 240px rgba(0,0,0,0.3);
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  
 `;
 
 const StyledLogo = styled.h1`
@@ -80,13 +87,14 @@ const ActionBar = styled.aside`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 4rem;
+  padding: 2.4rem;
+  margin-top: 2.4rem;
   border-top: 2px solid rgba(0,0,0,0.2);
-  /* position: relative; */
 `;
 
 const DealArea = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const CardCounter = styled.p`
@@ -107,7 +115,7 @@ const CardCounterLabel = styled.p`
   opacity: 0.6;
   font-size: 0.8em;
   letter-spacing: 0.1ch;
-  margin-top: 0.8rem;
+  margin: 0.8rem 0 0 0;
   font-weight: bold;
 `;
 
@@ -296,13 +304,11 @@ class App extends Component {
 
   render() {
     return (
-      <main className="App">
-        <AppContainer>
-          <Header />
-          {this.renderGameboard()}
-          <Footer />
-        </AppContainer>
-      </main>
+      <AppContainer className="App">
+        <Header />
+        {this.renderGameboard()}
+        <Footer />
+      </AppContainer>
     );
   }
 }
