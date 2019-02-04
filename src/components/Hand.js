@@ -19,11 +19,11 @@ const HandContainer = styled.div`
  * @param {number} numCards The number of cards in the hand we want to fan 
  */
 function getOffsetValues(numCards) {
-  let baseOffset = 66;
-  if (numCards <= 1) { baseOffset = 0; }
-  if (numCards === 2) { baseOffset = 25; }
-  if (numCards === 3) { baseOffset = 33; }
-  if (numCards === 4) { baseOffset = 50; }
+  let baseOffset = 25;
+  // if (numCards <= 1) { baseOffset = 0; }
+  // if (numCards === 2) { baseOffset = 25; }
+  // if (numCards === 3) { baseOffset = 33; }
+  // if (numCards === 4) { baseOffset = 50; }
   const baseValues = Array(numCards).fill(baseOffset);
   // const midIdx = Math.floor(baseValues.length / 2);
   // const offsetValues = baseValues.map((base, idx) => {
@@ -37,12 +37,12 @@ function getOffsetValues(numCards) {
  * @param {number} numCards The number of cards in the hand we want to fan 
  */
 function getRotateValues(numCards) {
-  let baseOffset = 3;
+  let baseRotation = 3;
   // if (numCards <= 1) { baseOffset = 0; }
   // if (numCards === 2) { baseOffset = 30; }
   // if (numCards === 3) { baseOffset = 20; }
   // if (numCards === 4) { baseOffset = 10; }
-  const baseValues = Array(numCards).fill(baseOffset);
+  const baseValues = Array(numCards).fill(baseRotation);
   const midIdx = Math.floor(baseValues.length / 2);
   const rotateValues = baseValues.map((base, idx) => {
     return base * (idx - midIdx);

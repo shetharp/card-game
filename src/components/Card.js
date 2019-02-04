@@ -25,11 +25,18 @@ const CardContainer = styled.div`
   cursor: pointer;
   user-select: none;
 
-  margin-right: calc(${props => props.offsetPercent / -100} * 160px);
+  margin: 0 calc(${props => props.offsetPercent / -100} * 160px);
   /* transform: translateX(${props => props.offsetPercent}%) rotate(${props=> props.rotateDegrees}deg); */
   transform: rotate(${props=> props.rotateDegrees}deg);
   transform-origin: ${props => props.rotateDegrees < 0 ? `bottom right` : `bottom left`};
-  transition: margin 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
+
+  :first-child { margin-left: 0; }
+  :last-child { margin-right: 0; }
+  :hover {
+    margin: 0 32px 0 0;
+    transform: translateY(-10%);
+  }
 
   i {
     font-style: normal;
