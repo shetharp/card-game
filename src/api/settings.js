@@ -9,7 +9,7 @@ const settings = {
 
     // Should the game start with a shuffled deck?
     // Default is true.
-    deckShuffled: false,
+    deckShuffled: true,
 
     // Number of total players (including the dealer). There will always be one dealer.
     // Default is 2.
