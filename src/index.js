@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
-import theme from './styles/theme';
 import App from './components/App';
-import gameBg from './images/game-bg.svg';
 
 const GlobalStyle = createGlobalStyle`
   * {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import deckService from '../api/deckofcards';
 import settings from '../api/settings';
 import theme from '../styles/theme';
