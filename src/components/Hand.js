@@ -15,33 +15,31 @@ const HandContainer = styled.div`
 //  HELPER FUNCTIONS
 // ==================================================
 /**
- * Returns an array of offset values used for css transfrom: translateX();
+ * Returns overlap value used for css
  * @param {number} numCards The number of cards in the hand we want to fan 
  */
-function getOffsetValues(numCards) {
-  let baseOffset = 25;
-  // if (numCards <= 1) { baseOffset = 0; }
-  // if (numCards === 2) { baseOffset = 25; }
-  // if (numCards === 3) { baseOffset = 33; }
-  // if (numCards === 4) { baseOffset = 50; }
-  const baseValues = Array(numCards).fill(baseOffset);
-  // const midIdx = Math.floor(baseValues.length / 2);
-  // const offsetValues = baseValues.map((base, idx) => {
-  //   return base * (midIdx - idx);
-  // })
-  return baseValues;
+function getOverlapValues(numCards) {
+  if (numCards < 2) { return 0; }
+  if (numCards < 4) { return 15; }
+  if (numCards < 6) { return 25; }
+  if (numCards < 10) { return 30; }
+  if (numCards < 20) { return 33; }
+  return 36;
 }
 
 /**
- * Returns an array of rotation values used for css transfrom: rotate();
+ * Returns an array of rotation values used for css transfrom: rotate()
  * @param {number} numCards The number of cards in the hand we want to fan 
  */
 function getRotateValues(numCards) {
-  let baseRotation = 3;
-  // if (numCards <= 1) { baseOffset = 0; }
-  // if (numCards === 2) { baseOffset = 30; }
-  // if (numCards === 3) { baseOffset = 20; }
-  // if (numCards === 4) { baseOffset = 10; }
+  const calcBaseRotation = () => {
+    if (numCards < 2) { return 0; }
+    if (numCards < 8) { return 3; }
+    if (numCards < 12) { return 2; }
+    if (numCards < 22) { return 1; }
+    return 0;
+  }
+  const baseRotation = calcBaseRotation();
   const baseValues = Array(numCards).fill(baseRotation);
   const midIdx = Math.floor(baseValues.length / 2);
   const rotateValues = baseValues.map((base, idx) => {
@@ -94,14 +92,10 @@ class Hand extends Component {
     return 0; 
   }
 
-
-
   render() {
     const {playerName, cards } = this.props;
-    const offsetValues = getOffsetValues(cards.length);
+    const overlapPercent = getOverlapValues(cards.length);
     const rotateValues = getRotateValues(cards.length);
-    // console.log(offsetValues);
-    console.log(rotateValues);
     return (
       <span>
         <h1>
@@ -117,7 +111,7 @@ class Hand extends Component {
                 key={card.code} 
                 isFaceUp={faceUpCards.has(card.code)} 
                 onFlipCard={this.handleFlipCard}
-                offsetPercent={offsetValues[idx]}
+                overlapPercent={overlapPercent}
                 rotateDegrees={rotateValues[idx]}
                 { ...card } 
                 />

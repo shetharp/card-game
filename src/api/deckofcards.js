@@ -64,7 +64,6 @@ const getPlayerNames = async (deckID, playerName) => {
   try {
     const getPlayersURL = `/deck/${deckID}/pile/${playerName}/list/`;
     const getPlayersResponse = await deckofcards.get(getPlayersURL);
-    console.log('getPlayersResponse', getPlayersResponse);
     return Object.keys(getPlayersResponse.data.piles);
   }
   catch {

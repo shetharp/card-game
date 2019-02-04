@@ -25,9 +25,8 @@ const CardContainer = styled.div`
   cursor: pointer;
   user-select: none;
 
-  margin: 0 calc(${props => props.offsetPercent / -100} * 160px);
-  /* transform: translateX(${props => props.offsetPercent}%) rotate(${props=> props.rotateDegrees}deg); */
-  transform: rotate(${props=> props.rotateDegrees}deg);
+  margin: 0 calc(${props => props.overlapPercent / -100} * 160px);
+  transform: rotate(${props => props.rotateDegrees}deg) translateY(${props => props.offsetPercent}%);
   transform-origin: ${props => props.rotateDegrees < 0 ? `bottom right` : `bottom left`};
   transition: all 0.3s ease;
 
@@ -136,13 +135,14 @@ class Card extends Component {
   }
 
   render() {
-    const { isFaceUp, value, suit, offsetPercent, rotateDegrees } = this.props;
+    const { isFaceUp, value, suit, overlapPercent, offsetPercent, rotateDegrees } = this.props;
     const suitColor = getSuitColor(suit);
     return (
       <CardContainer 
         onClick={this.handleClick}
         isFaceUp={isFaceUp}
         suitColor={suitColor}
+        overlapPercent={overlapPercent}
         offsetPercent={offsetPercent}
         rotateDegrees={rotateDegrees}
       >

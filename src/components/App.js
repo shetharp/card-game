@@ -22,7 +22,6 @@ class App extends Component {
   componentWillMount() {
     const prevDeckID = localStorage.getItem('deckID');
     if (prevDeckID !== null) {
-      console.log(prevDeckID);
       this.setState({ prevDeckID: prevDeckID });
     }
   }
@@ -48,9 +47,7 @@ class App extends Component {
     if (this.state.prevDeckID) {
       try {
         const prevDeckData = await deckService.getPrevDeck(this.state.prevDeckID);
-        console.log('prevDeckData:', prevDeckData);
         const prevPlayerStates = await this.getPlayerStates(this.state.prevDeckID);
-        console.log('prevPlayers:', prevPlayerStates);
         const playerStates = (prevPlayerStates.length === 0) ? this.initPlayerStates(settings.numPlayers) : prevPlayerStates;
         this.setState({
           gameStarted: true,
