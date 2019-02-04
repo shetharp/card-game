@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="48px" height="64px" viewBox="0 0 48 64" style="enable-background:new 0 0 48 64;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:2.000000e-02;}
+	.st1{fill-rule:evenodd;clip-rule:evenodd;}
+</style>
+<title>overlapping-diamonds</title>
+<desc>Created with Sketch.</desc>
+<g id="Page-1" class="st0">
+	<g id="overlapping-diamonds">
+		<path id="Combined-Shape" class="st1" d="M48,28v-4L36,12L24,24L12,12L0,24v4l0,0l4,4l-4,4v4l12,12l12-12l12,12l12-12v-4l-4-4
+			L48,28L48,28z M8,32l-6-6l10-10l10,10l-6,6l6,6L12,48L2,38L8,32L8,32L8,32L8,32L8,32L8,32z M20,32l4-4l4,4l-4,4L20,32L20,32L20,32
+			L20,32L20,32L20,32z M32,32l-6-6l10-10l10,10l-6,6l6,6L36,48L26,38L32,32L32,32L32,32L32,32L32,32L32,32z M0,16L10,6L4,0h4l4,4
+			l4-4h4l-6,6l10,10L34,6l-6-6h4l4,4l4-4h4l-6,6l10,10v4L36,8L24,20L12,8L0,20V16L0,16L0,16L0,16L0,16L0,16z M0,48l10,10l-6,6h4l4-4
+			l4,4h4l-6-6l10-10l10,10l-6,6h4l4-4l4,4h4l-6-6l10-10v-4L36,56L24,44L12,56L0,44V48L0,48L0,48L0,48L0,48L0,48z"/>
+	</g>
+</g>
+</svg>
