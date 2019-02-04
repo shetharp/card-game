@@ -33,10 +33,6 @@ const StyledFooter = styled.footer`
   opacity: 0.5;
 `;
 
-const Gameboard = styled.div`
-
-`;
-
 const Button = styled.button`
   font-family: inherit;
   font-weight: inherit;
@@ -52,11 +48,68 @@ const Button = styled.button`
   box-shadow: 0 2px 2px rgba(0,0,0,0.2), 0 4px 4px rgba(0,0,0,0.1);
   cursor: pointer;
   transition: all 0.3s ease;
-
   :hover {
     color: seagreen;
     box-shadow: 0 2px 2px rgba(0,0,0,0.2), 0 4px 4px rgba(0,0,0,0.4);
   }
+
+  ${props => props.accent && `
+    background: mediumseagreen;
+    color: honeydew;
+    :hover { color: white; }
+  `}
+  ${props => props.disabled && `
+    cursor: not-allowed;
+    background: darkseagreen;
+    color: honeydew;
+    :hover { color: inherit; }
+  `}
+`;
+
+const Gameboard = styled.div`
+  ${props => props.isActive && `
+    display: flex;
+    height: 100%;
+    width: 100%;
+  `}
+
+`;
+
+const Sidebar = styled.aside`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 4rem;
+  border-right: 2px solid rgba(0,0,0,0.2);
+  position: relative;
+`;
+
+const SidebarBottom = styled.div`
+  position: absolute;
+  bottom: 0;
+`;
+
+const CardCounter = styled.p`
+  font-size: 3.2rem;
+  font-weight: bold;
+  text-align: center;
+  line-height: 7.2rem;
+  height: 8rem;
+  width: 8rem;
+  background:${props => props.isZero ? `rgba(0,0,0,0.1)` : `rgba(0,0,0,0.3)`};
+  border: ${props => props.isZero ? `8px dashed rgba(255,255,255, 0.8)` : `8px solid rgba(255,255,255,0.6)`};
+  border-radius: 2rem;
+  margin: auto;
+`;
+
+const CardCounterLabel = styled.p`
+  text-transform: uppercase;
+  opacity: 0.6;
+  font-size: 0.8em;
+  letter-spacing: 0.1ch;
+  margin-top: 0.8rem;
+  font-weight: bold;
 `;
 
 // ==================================================
@@ -86,6 +139,10 @@ function Footer(props) {
   )
 }
 
+
+// ==================================================
+//  MAIN COMPONENT
+// ==================================================
 class App extends Component {
   /**
    * gameStarted: Show splash screen if game hasn't started, else show gameboard
@@ -216,16 +273,22 @@ class App extends Component {
       );
     } else {
       return (
-        <Gameboard id="gameboard-active">
-          <div id="sidebar">
-            <Button onClick={this.onNewGame}>New Game</Button>
-            <ul>
-              <li><strong>Deck ID:</strong> {this.state.deckID}</li>
-              <li><strong>Deck Remaining:</strong> {this.state.deckRemaining}</li>
-              <li><strong>Players:</strong> {this.state.players.map(player => player.name).toString()}</li>
-            </ul>
-            <Button onClick={this.onDeal}>Deal</Button>
-          </div>
+        <Gameboard isActive>
+          <Sidebar>
+            {/* <p style={{display: 'none'}}>
+              <strong>Deck ID:</strong> {this.state.deckID}
+            </p> */}
+            <div>
+              <CardCounter isZero={this.state.deckRemaining === 0}>
+                {this.state.deckRemaining}
+              </CardCounter>
+              <CardCounterLabel>Cards Remaining</CardCounterLabel>
+              <Button onClick={this.onDeal} disabled={this.state.deckRemaining === 0}>Deal</Button>
+            </div>
+            <SidebarBottom>
+              <Button onClick={this.onNewGame} accent={this.state.deckRemaining !== 0}>New Game</Button>
+            </SidebarBottom>
+          </Sidebar>
           <PlayerList players={this.state.players} />
         </Gameboard>
       );
