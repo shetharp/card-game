@@ -68,26 +68,25 @@ const Button = styled.button`
 
 const Gameboard = styled.div`
   ${props => props.isActive && `
-    display: flex;
+    /* display: flex;
     height: 100%;
-    width: 100%;
+    width: 100%; */
   `}
 
 `;
 
-const Sidebar = styled.aside`
+const ActionBar = styled.aside`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  padding: 0 4rem;
-  border-right: 2px solid rgba(0,0,0,0.2);
-  position: relative;
+  padding: 4rem;
+  border-top: 2px solid rgba(0,0,0,0.2);
+  /* position: relative; */
 `;
 
-const SidebarBottom = styled.div`
-  position: absolute;
-  bottom: 0;
+const DealArea = styled.div`
+  display: flex;
 `;
 
 const CardCounter = styled.p`
@@ -274,22 +273,22 @@ class App extends Component {
     } else {
       return (
         <Gameboard isActive>
-          <Sidebar>
+          <PlayerList players={this.state.players} />
+          <ActionBar>
             {/* <p style={{display: 'none'}}>
               <strong>Deck ID:</strong> {this.state.deckID}
             </p> */}
-            <div>
-              <CardCounter isZero={this.state.deckRemaining === 0}>
-                {this.state.deckRemaining}
-              </CardCounter>
-              <CardCounterLabel>Cards Remaining</CardCounterLabel>
+            <Button onClick={this.onNewGame} accent={this.state.deckRemaining !== 0}>New Game</Button>
+            <DealArea>
+              <div>
+                <CardCounter isZero={this.state.deckRemaining === 0}>
+                  {this.state.deckRemaining}
+                </CardCounter>
+                <CardCounterLabel>Cards Remaining</CardCounterLabel>
+              </div>
               <Button onClick={this.onDeal} disabled={this.state.deckRemaining === 0}>Deal</Button>
-            </div>
-            <SidebarBottom>
-              <Button onClick={this.onNewGame} accent={this.state.deckRemaining !== 0}>New Game</Button>
-            </SidebarBottom>
-          </Sidebar>
-          <PlayerList players={this.state.players} />
+            </DealArea>
+          </ActionBar>
         </Gameboard>
       );
     }
