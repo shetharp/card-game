@@ -19,7 +19,7 @@ To install this web app locally, follow these steps.
 1. Clone this repo.
 2. Navigate to the this project's directory and run `npm install`
 3. To begin developing, run `npm start`
-4. To build the project for deployment, run `npm build`
+4. To build the project for deployment, run `npm run build`
 
 ## Making this your own
 This web app was built with extensibility and future scalability in mind.
@@ -37,7 +37,7 @@ Basic theme settings are stored in the `src/styles/theme.js` file. Further custo
 The Cards used in this game are designed with CSS. They are _not images._ You can customize the both the Back and the Front of the Card by editing the Card component file in `src/components/Card.js`.
 
 ### Managing Hands
-The game currently requests to `Draw` a card from the deck and add it to that player's `pile` or hand through the API. To reduce latency and minimize the number of API calls, the game does not request the API to list each player's hand each time a card is drawn. The game only requests the API to list each player's hand if a previous game is being resumed to reinitialize the game state.
+The game currently requests to `Draw` a card from the deck and add it to that player's `pile` (AKA hand) through the API. To reduce latency and minimize the number of API calls, the game does not request the API to list each player's hand each time a card is drawn. The game only requests the API to list each player's hand if a previous game is being resumed to reinitialize the game state.
 
 ### Save Game
 This game currently supports resuming the most recently played game. The game stores the `deckID` from the Deck of Cards API in the user's `localStorage` to resume the game. Currently, _the game does not store any other information besides the `deckID`._
