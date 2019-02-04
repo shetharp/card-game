@@ -21,7 +21,7 @@ const getNewDeck = async () => {
  * @param {string} deckID A valid deckID that has been used within the past 2 weeks.
  */
 const getPrevDeck = async (deckID) => {
-  const requestURL = settings.deckShuffled ? `/deck/${deckID}/shuffle/` : `/deck/${deckID}/`;
+  const requestURL = `/deck/${deckID}/`;
   const deckResponse = await deckofcards.get(requestURL);
   return deckResponse.data;
 }
