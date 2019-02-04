@@ -1,7 +1,90 @@
 import React, { Component } from "react";
+import styled, { css } from 'styled-components';
 import deckService from '../api/deckofcards';
 import settings from '../api/settings';
+import theme from '../styles/theme';
 import PlayerList from './PlayerList';
+
+// ==================================================
+//  STYLED COMPONENTS
+// ==================================================
+const AppContainer = styled.div`
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const StyledLogo = styled.h1`
+  font-size: 4.8rem;
+  margin: 0;
+`;
+
+const StyledHeader = styled.header`
+  text-align: center;
+  padding: 4rem;
+`;
+
+const StyledFooter = styled.footer`
+  text-align: center;
+  padding: 4rem;
+  opacity: 0.5;
+`;
+
+const Gameboard = styled.div`
+
+`;
+
+const Button = styled.button`
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 2.4rem;
+  color: mediumseagreen;
+  height: 8rem;
+  width: 24rem;
+  margin: 0.8rem;
+  background: white;
+  border: none;
+  border-radius: 8rem;
+  outline: none;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.2), 0 4px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  :hover {
+    color: seagreen;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.2), 0 4px 4px rgba(0,0,0,0.4);
+  }
+`;
+
+// ==================================================
+//  HELPER COMPONENTS
+// ==================================================
+function Logo(props) {
+  return (
+    <StyledLogo>
+      <span role="img" aria-label="Playing Card">🃏</span> Card Game<br/>
+    </StyledLogo>
+  );
+}
+
+function Header(props) {
+  return (
+    <StyledHeader>
+      <Logo />
+    </StyledHeader>
+  )
+}
+
+function Footer(props) {
+  return (
+    <StyledFooter>
+      By <a href="https://arpitsheth.com/" target="_blank" rel="noopener noreferrer">Arpit Sheth</a>
+    </StyledFooter>
+  )
+}
 
 class App extends Component {
   /**
@@ -117,39 +200,47 @@ class App extends Component {
   // Resumes a previous game if its data is stored in localStorage
   renderResumeGame() {
     if (this.state.prevDeckID) {
-      return <button onClick={this.onResumeGame}>Resume Game</button>
+      return <Button onClick={this.onResumeGame}>Resume Game</Button>
     }
   }
 
   renderGameboard() {
     if (!this.state.gameStarted) {
       return (
-        <div id="gameboard-splash">
-          <h1>Card Game</h1>
-          <button onClick={this.onNewGame}>Start Game</button>
-          {this.renderResumeGame()}
-        </div>
+        <Gameboard id="gameboard-splash">
+          <div>
+            <Button onClick={this.onNewGame}>Start Game</Button>
+            {this.renderResumeGame()}
+          </div>
+        </Gameboard>
       );
     } else {
       return (
-        <div id="gameboard-active">
-          <h1>Card Game</h1>
-          <button onClick={this.onNewGame}>New Game</button>
-          <ul>
-            <li><strong>Deck ID:</strong> {this.state.deckID}</li>
-            <li><strong>Deck Remaining:</strong> {this.state.deckRemaining}</li>
-            <li><strong>Players:</strong> {this.state.players.map(player => player.name).toString()}</li>
-          </ul>
-          <button onClick={this.onDeal}>Deal</button>
+        <Gameboard id="gameboard-active">
+          <div id="sidebar">
+            <Button onClick={this.onNewGame}>New Game</Button>
+            <ul>
+              <li><strong>Deck ID:</strong> {this.state.deckID}</li>
+              <li><strong>Deck Remaining:</strong> {this.state.deckRemaining}</li>
+              <li><strong>Players:</strong> {this.state.players.map(player => player.name).toString()}</li>
+            </ul>
+            <Button onClick={this.onDeal}>Deal</Button>
+          </div>
           <PlayerList players={this.state.players} />
-        </div>
+        </Gameboard>
       );
     }
   }
 
   render() {
     return (
-      <main className="App">{this.renderGameboard()}</main>
+      <main className="App">
+        <AppContainer>
+          <Header />
+          {this.renderGameboard()}
+          <Footer />
+        </AppContainer>
+      </main>
     );
   }
 }

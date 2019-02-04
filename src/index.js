@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { createGlobalStyle } from 'styled-components';
 import theme from './styles/theme';
 import App from './components/App';
-
+import gameBg from './images/game-bg.svg';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -15,9 +15,16 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: Bahnschrift, 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 300;
-    background: ${theme.board};
+    font-size: 1.6rem;
+    color: white;
+    background: ${theme.board} url(${gameBg});
+    box-shadow: inset 0 0 160px rgba(0,0,0,0.2), inset 0 0 240px rgba(0,0,0,0.3);
     margin: 0;
     padding: 0;
+  }
+  a, a:hover, a:visited, a:focus {
+    color: inherit;
+    outline: none;
   }
 `;
 

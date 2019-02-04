@@ -15,7 +15,7 @@ const CardContainer = styled.div`
   background-position: center center, auto auto;
   ${props => props.isFaceUp &&
     `background-color: white;
-    background-image: linear-gradient(30deg, rgba(245,245,245,1) 0%, rgba(255,255,255,1) 100%);
+    background-image: linear-gradient(30deg, rgba(240,240,240,1) 0%, rgba(255,255,255,1) 100%);
     `
   }
   border-radius: 16px;
