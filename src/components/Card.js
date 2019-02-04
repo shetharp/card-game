@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const StyledCard = styled.span`
+  color: ${props => props.isFaceUp ? 'orange' : 'steelblue'};
+  font-weight: bold;
+`;
 
 class Card extends Component {
   state = { isFaceUp: false }
@@ -9,14 +15,14 @@ class Card extends Component {
   }
 
   render() {
+    const { isFaceUp } = this.props; 
     return (
-      <span 
-        // onClick={e => this.setState({ isFaceUp: !this.state.isFaceUp })}
+      <StyledCard 
         onClick={this.handleClick}
-        style={{ color: this.props.isFaceUp ? 'mediumseagreen' : 'gray' }}
+        isFaceUp={isFaceUp}
       >
-        {this.props.code}, &nbsp;
-      </span>
+        {this.props.code},&nbsp;
+      </StyledCard>
     );
   }
 }
