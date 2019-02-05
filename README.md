@@ -1,5 +1,6 @@
 # Card Game
 This is a web app game that lets you flip cards and collect points against a dealer.
+### [Click to Play!](https://shetharp.github.io/card-game/)
 
 ![screenshot](screenshot.png)
 
@@ -47,6 +48,7 @@ This game currently supports resuming the most recently played game. The game st
 * Implement a game of Blackjack
 * Design the cards to show the corresponding number of suit symbols based on its value
 * Design face cards with only CSS
+* Make the web app responsive and optimized for mobile
 * Save multiple games with `localStorage`
 * Create an algorithm to automate the dealer's game strategy
 * Get a new deck once the current one runs out
