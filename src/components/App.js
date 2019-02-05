@@ -281,7 +281,7 @@ class App extends Component {
     } else {
       return (
         <Gameboard isActive>
-          <PlayerList players={this.state.players} />
+          <PlayerList deckID={this.state.deckID} players={this.state.players} />
           <ActionBar>
             {/* <p style={{display: 'none'}}>
               <strong>Deck ID:</strong> {this.state.deckID}

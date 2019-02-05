@@ -20,9 +20,9 @@ function getSortedPlayerStates(playerStates) {
 
 function PlayerList(props) {
   const sortedPlayerStates = getSortedPlayerStates(props.players);
-  const players = sortedPlayerStates.map(({ name, hand, numCards }) => {
+  const players = sortedPlayerStates.map(({ name, hand }) => {
     return (
-        <Hand key={name} playerName={name} cards={hand} />
+        <Hand key={`${name}-${props.deckID}`} deckID={props.deckID} playerName={name} cards={hand} />
     );
   });
 

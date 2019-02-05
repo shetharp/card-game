@@ -116,7 +116,7 @@ class Hand extends Component {
   }
 
   render() {
-    const {playerName, cards } = this.props;
+    const {deckID, playerName, cards } = this.props;
     const overlapPercent = getOverlapValues(cards.length);
     const rotateValues = getRotateValues(cards.length);
     return (
@@ -132,7 +132,7 @@ class Hand extends Component {
             const faceUpCards = this.state.faceUpCards
             return (
               <Card 
-                key={card.code} 
+                key={`${card.code}-${deckID}`} 
                 isFaceUp={faceUpCards.has(card.code)} 
                 onFlipCard={this.handleFlipCard}
                 overlapPercent={overlapPercent}
