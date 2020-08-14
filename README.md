@@ -1,6 +1,6 @@
 # Card Game
 This is a web app game that lets you flip cards and collect points against a dealer.
-### [Click to Play!](https://shetharp.github.io/card-game/)
+### [🃏 Click to Play! →](https://shetharp.github.io/card-game/)
 
 ![screenshot](screenshot.png)
 
